@@ -5,7 +5,7 @@ dtype = None # None for auto detection. Float16 for Tesla T4, V100, Bfloat16 for
 load_in_4bit = True # Use 4bit quantization to reduce memory usage. Can be False.
 
 model, tokenizer = FastLanguageModel.from_pretrained(
-    model_name = "tuned_model", # YOUR MODEL YOU USED FOR TRAINING
+    model_name = "tuned_model300", # YOUR MODEL YOU USED FOR TRAINING
     max_seq_length = max_seq_length,
     dtype = dtype,
     load_in_4bit = load_in_4bit,
@@ -63,8 +63,6 @@ for entry in dataset:
         continue
     if count > 500:
         break
-    if entry['sql'][:6] == 'SELECT':
-        continue
     count += 1
     print(f"Processing entry {count}/{len(dataset)}...")
     generated_sql = generate_sql_from_entry(entry)
